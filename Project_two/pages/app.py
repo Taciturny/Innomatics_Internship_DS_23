@@ -1,5 +1,6 @@
 import streamlit as st
 from matplotlib import image
+from PIL import Image
 import pandas as pd
 import plotly.express as px
 import os
@@ -17,7 +18,7 @@ PARENT_DIR = os.path.join(FILE_DIR, os.pardir)
 # absolute path of directory_of_interest
 dir_of_interest = os.path.join(PARENT_DIR, "resources")
 
-IMAGE_PATH = os.path.join(dir_of_interest, "images", "heart_disease.jpg")
+IMAGE_PATH = os.path.join(dir_of_interest, "image", "heart_disease.jpg")
 DATA_PATH = os.path.join(dir_of_interest, "data", "heart-disease.csv")
 
 st.title("Heart Disease Dashboard")
