@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h2 class="title">{% block title %} URLs..... &#x1F49E; {% endblock %}</h2>
+    <div class="body">
+        {% for url in urls %}
+            <div class="student">
+                
+                <b>
+                    <p class="name">Original {{ url.original_url }}</p>
+                </b>
+                <b>
+                    <a href="http://127.0.0.1:5000/{{url.id}}/{{url.short_url}}" class="name" target="_blank">Shorten http://127.0.0.1:5000/{{url.id}}/{{url.short_url}}</a>
+                </b>
+                
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

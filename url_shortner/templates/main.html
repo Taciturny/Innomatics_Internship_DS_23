@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortened URL</title>
+    <style>
+        .title {
+            margin: 5px;
+        }
+
+        .body {
+            margin: 5px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .student {
+            flex: 20%;
+            padding: 10px;
+            margin: 5px;
+            background-color: #f3f;
+            inline-size: 100%;
+        }
+
+        .bio {
+            padding: 10px;
+            margin: 5px;
+            background-color: #fff;
+            color: #0048;
+        }
+
+        .name a {
+            color: #00a;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #d64161;
+            font-size: 2em;
+            margin-left: 50px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index')}}">URL Shorner</a>
+        <a href="{{ url_for('content')}}">Show all URLs</a>
+    </nav>
+    <hr>
+    <div class="body">
+        {% block body %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>
