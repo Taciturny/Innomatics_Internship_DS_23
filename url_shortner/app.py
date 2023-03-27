@@ -46,10 +46,11 @@ def index():
         return render_template('index.html')
 
 
-@app.route('/<id>')
-def url_redirect(id):
+
+@app.route('/<id>/<shorten>')
+def redirect_url(id,shorten):
     print(id)
-    url = URL.query.filter_by(id=id).first().url
+    url = URL.query.filter_by(id=id).first().short_url
     return redirect(url)
 
 
@@ -60,3 +61,4 @@ def content():
 
 if __name__ =='__main__':
     app.run(debug=True)
+
