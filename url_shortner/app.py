@@ -50,7 +50,7 @@ def index():
 @app.route('/<id>/<shorten>')
 def redirect_url(id,shorten):
     print(id)
-    url = URL.query.filter_by(id=id).first().short_url
+    url = URL.query.filter_by(id=id).first().original_url
     return redirect(url)
 
 
