@@ -48,9 +48,11 @@ def main():
 
     # Convert user input to DataFrame
     input_df = pd.DataFrame([user_input])
+    
+    pp = np.array(input_df). reshape (1,-1)
 
     # Make a prediction using the loaded model
-    prediction = model.predict(input_df)
+    prediction = model.predict(pp)
 
     # Display the predicted price to the user
     st.write('The predicted price of the laptop is:', prediction[0])
