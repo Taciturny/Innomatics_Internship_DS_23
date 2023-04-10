@@ -23,7 +23,10 @@ st.set_page_config(
 # modelPath = os.path.join(dir_of_interest,'model.pkl')
 # dictPath = os.path.join(dir_of_interest,'laptopdict.json')
 
-RESOURCES_PATH = os.path.join(os.getcwd(), 'resource')
+RESOURCE_PATH = os.path.join(os.getcwd()'laptop_task')
+RESOURCE_PATH = os.path.join(RESOURCE_PATH,'resource')
+
+# RESOURCES_PATH = os.path.join(os.getcwd(), 'resource')
 dictPath = os.path.join(RESOURCES_PATH,'laptopdict.json')
 modelPath = os.path.join(RESOURCES_PATH,'model.pkl')
 
