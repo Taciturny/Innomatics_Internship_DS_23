@@ -14,14 +14,14 @@ st.set_page_config(
     menu_items={"About": "This is a Laptop Price Estimation App!"}
 )
 
-# Set the page configuration
-# st.set_page_config(page_title='Estimating Laptop Price', page_icon=':computer:', layout='wide', menu_items={'About': 'This is a Laptop Price Estimation App!'})
-# st.set_page_config(page_title="My Streamlit App", page_icon=":computer:", layout="wide", initial_sidebar_state="expanded", backgroundColor="#F8F8FF")
-
-
-RESOURCES_PATH = os.path.join(os.getcwd(), 'resource')
-dictPath = os.path.join(RESOURCES_PATH,'laptopdict.json')
-modelPath = os.path.join(RESOURCES_PATH,'model.pkl')
+# absolute path to this file
+FILE_DIR = os.path.dirname(os.path.abspath(__file__))
+# absolute path to this file's root directory
+PARENT_DIR = os.path.join(FILE_DIR, os.pardir)
+# absolute path of directory_of_interest
+dir_of_interest = os.path.join(PARENT_DIR, "resource")
+modelPath = os.path.join(dir_of_interest,'model.pkl')
+dictPath = os.path.join(dir_of_interest'laptopdict.json')
 
 
 # Load the saved model
