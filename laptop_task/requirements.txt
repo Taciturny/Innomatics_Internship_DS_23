@@ -67,36 +67,18 @@ pydeck==0.8.0
 Pygments==2.14.0
 PyMeeus==0.5.12
 Pympler==1.0.1
-pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
-pyparsing @ file:///C:/Users/BUILDE~1/AppData/Local/Temp/abs_7f_7lba6rl/croots/recipe/pyparsing_1661452540662/work
 PyQt5==5.15.7
-PyQt5-sip @ file:///C:/Windows/Temp/abs_d7gmd2jg8i/croots/recipe/pyqt-split_1659273064801/work/pyqt_sip
-pyrsistent @ file:///C:/ci_310/pyrsistent_1642117077485/work
-PySocks @ file:///C:/ci_310/pysocks_1642089375450/work
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
-pytz @ file:///C:/Windows/TEMP/abs_90eacd4e-8eff-491e-b26e-f707eba2cbe1ujvbhqz1/croots/recipe/pytz_1654762631027/work
 pytz-deprecation-shim==0.1.0.post0
 pywin32==302
-pywinpty @ file:///C:/ci_310/pywinpty_1644230983541/work/target/wheels/pywinpty-2.0.2-cp310-none-win_amd64.whl
-pyzmq @ file:///C:/ci/pyzmq_1657616000714/work
-qtconsole @ file:///C:/ci/qtconsole_1662019052262/work
-QtPy @ file:///C:/ci/qtpy_1662015130233/work
-requests @ file:///C:/ci/requests_1657735340829/work
 requests-oauthlib==1.3.1
 rich==12.6.0
 rsa==4.9
-scikit-learn @ file:///D:/bld/scikit-learn_1659726222442/work
+scikit-learn==1.1.2
 scipy==1.9.2
 seaborn==0.12.0
 semver==2.13.0
-Send2Trash @ file:///tmp/build/80754af9/send2trash_1632406701022/work
-sip @ file:///C:/Windows/Temp/abs_b8fxd17m2u/croots/recipe/sip_1659012372737/work
-six @ file:///tmp/build/80754af9/six_1644875935023/work
 skimpy==0.0.8
 smmap==5.0.0
-sniffio @ file:///C:/ci_310/sniffio_1642092172680/work
-soupsieve @ file:///tmp/build/80754af9/soupsieve_1636706018808/work
-stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
 statsmodels==0.13.2
 streamlit==1.19.0
 tenacity==8.1.0
@@ -107,24 +89,14 @@ tensorflow==2.10.0
 tensorflow-estimator==2.10.0
 tensorflow-io-gcs-filesystem==0.27.0
 termcolor==2.0.1
-terminado @ file:///C:/ci/terminado_1644312135040/work
-testpath @ file:///C:/Windows/TEMP/abs_23c7fa33-cbb9-46dc-b7c5-590c38e2de3d4bmbngal/croots/recipe/testpath_1655908553202/work
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
-toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 toolz==0.12.0
-tornado @ file:///C:/ci/tornado_1662476985533/work
 tqdm==4.64.1
-traitlets @ file:///tmp/build/80754af9/traitlets_1636710298902/work
 typeguard==2.13.3
-typing_extensions @ file:///C:/Windows/TEMP/abs_dd2d0moa85/croots/recipe/typing_extensions_1659638831135/work
 tzdata==2022.7
 tzlocal==4.2
-urllib3 @ file:///C:/Windows/TEMP/abs_65ynz4fdmi/croots/recipe/urllib3_1659110473919/work
 validators==0.20.0
 watchdog==2.3.0
-wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 webencodings==0.5.1
-websocket-client @ file:///C:/ci_310/websocket-client_1642093970919/work
 Werkzeug==2.2.2
 wincertstore==0.2
 wrapt==1.14.1
