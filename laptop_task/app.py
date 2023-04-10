@@ -21,7 +21,7 @@ PARENT_DIR = os.path.join(FILE_DIR, os.pardir)
 # absolute path of directory_of_interest
 dir_of_interest = os.path.join(PARENT_DIR, "resource")
 modelPath = os.path.join(dir_of_interest,'model.pkl')
-dictPath = os.path.join(dir_of_interest'laptopdict.json')
+dictPath = os.path.join(dir_of_interest,'laptopdict.json')
 
 
 # Load the saved model
