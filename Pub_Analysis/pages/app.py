@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 from PIL import Image, ImageEnhance
-import streamlit_folium as sf
+from streamlit_folium import st_folium
 # from folium.plugins import MarkerCluster
 from streamlit_folium.plugins import MarkerCluster
 from sklearn.neighbors import BallTree
@@ -87,12 +87,12 @@ def pub_locations():
     else:
         # Show pubs on a map
         st.write("Map of selected pubs:")
-        m = sf.folium_static(sf.Map(location=[pubs["latitude"].mean(), pubs["longitude"].mean()], zoom_start=13))
+        m = st_folium.folium_static(st_folium.Map(location=[pubs["latitude"].mean(), pubs["longitude"].mean()], zoom_start=13))
 
         marker_cluster = MarkerCluster().add_to(m)
 
         for _, row in pubs.iterrows():
-            sf.Marker([row["latitude"], row["longitude"]], popup=row["name"]).add_to(marker_cluster)
+            st_folium.Marker([row["latitude"], row["longitude"]], popup=row["name"]).add_to(marker_cluster)
 
         folium_static(m)
 
