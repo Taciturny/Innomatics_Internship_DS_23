@@ -3,10 +3,10 @@ import pandas as pd
 import os
 from PIL import Image, ImageEnhance
 from streamlit_folium import st_folium
-# from folium.plugins import MarkerCluster
+from folium.plugins import MarkerCluster
 from streamlit_folium.plugins import MarkerCluster
 from sklearn.neighbors import BallTree
-from streamlit_folium import st_folium_static as folium_static
+from streamlit_folium import folium_static
 # from streamlit_folium import folium_static
 
 
