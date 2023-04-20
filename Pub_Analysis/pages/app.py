@@ -1,14 +1,9 @@
 import streamlit as st
 import pandas as pd
-import os
 from PIL import Image, ImageEnhance
-from streamlit_folium import st_folium
-from folium.plugins import MarkerCluster
-from streamlit_folium.plugins import MarkerCluster
-from sklearn.neighbors import BallTree
-from streamlit_folium import folium_static
-# from streamlit_folium import folium_static
-
+import numpy as np
+import folium
+import os
 
 st.set_page_config(page_title="Pub Finder App",
                    page_icon=":🍺:",
@@ -24,7 +19,6 @@ dir_of_interest = os.path.join(PARENT_DIR, "resources")
 HOME_IMAGE_PATH = os.path.join(dir_of_interest, "image", "pub_home.jpg")
 LOCATIONS_IMAGE_PATH = os.path.join(dir_of_interest, "image", "pub_location.jpg")
 NEAREST_IMAGE_PATH = os.path.join(dir_of_interest, "image", "pub_nearest.jpg")
-RANDOM_IMAGE_PATH = os.path.join(dir_of_interest, "image", "pub_random.jpg")
 DATA_PATH = os.path.join(dir_of_interest, "data", "pub_data.csv")
 
 st.markdown("<h1 style='color: red;'>Pub Finder App</h1>", unsafe_allow_html=True)
@@ -44,110 +38,64 @@ nearest_img = Image.open(NEAREST_IMAGE_PATH)
 enhancer = ImageEnhance.Contrast(nearest_img)
 nearest_img = enhancer.enhance(1.5)
 
-# Load random pub page image
-random_img = Image.open(RANDOM_IMAGE_PATH)
-enhancer = ImageEnhance.Contrast(random_img)
-random_img = enhancer.enhance(1.5)
-
 # Load data
 df = pd.read_csv(DATA_PATH)
 
-# Page 1 - Home Page
+# Page Number 1 - Home Page
 def home():
     st.image(home_img, caption=None, width=500, use_column_width=200, clamp=False, channels="RGB", output_format="auto")
-    st.write("This app allows you to find pubs in the United Kingdom (UK) and discover their locations.")
-    st.write("The dataset used in this app contains information about over 50,000 pubs in the UK.")
-    st.write("You can navigate to the other pages using the menu on the left.")
+    st.title('Open Pub Application')
+    st.write('Welcome to the Open Pub Application!')
+    st.write(f'We have {len(df)} pub locations in our database.')
+    st.write('Use the navigation sidebar to explore the app.')
 
-    # Show basic information and statistics about the dataset
-    st.write("Here are some basic statistics about the dataset:")
-    st.write("- Total number of pubs:", df.shape[0])
-    st.write("- Number of unique local authorities:", df["local_authority"].nunique())
-    st.write("- Number of unique postal codes:", df["postcode"].nunique())
-
-# Page 2 - Pub Locations
+# Page Number 2 - Pub Locations
 def pub_locations():
     st.image(locations_img, caption=None, width=500, use_column_width=200, clamp=False, channels="RGB", output_format="auto")
-    st.title("Pub Locations")
-
-    # Select filter type
-    filter_type = st.selectbox("Select filter type", ["Postal Code", "Local Authority"])
-
-    # Filter by postal code or local authority
-    if filter_type == "Postal Code":
-        selected_code = st.text_input("Enter Postal Code")
-        pubs = df[df["postcode"] == selected_code]
+    st.title('Pub Locations')
+    location_type = st.radio('Search by:', ('Postal Code', 'Local Authority'))
+    if location_type == 'Postal Code':
+        location = st.text_input('Enter Postal Code (e.g., SW1A 2AA):')
+        pubs = df[df['postcode'] == location]
     else:
-        selected_authority = st.selectbox("Select Local Authority", df["local_authority"].unique())
-        pubs = df[df["local_authority"] == selected_authority]
+        location = st.selectbox('Select Local Authority:', df['local_authority'].unique())
+        pubs = df[df['local_authority'] == location]
+    st.write(f'We found {len(pubs)} pubs in {location}.')
+    map_data = pubs[['latitude', 'longitude']].dropna()
+    st.map(map_data)
 
-    # Check if pubs DataFrame is empty
-    if pubs.empty:
-        st.write("No pubs found for selected filter.")
-    else:
-        # Show pubs on a map
-        st.write("Map of selected pubs:")
-        m = st_folium.folium_static(st_folium.Map(location=[pubs["latitude"].mean(), pubs["longitude"].mean()], zoom_start=13))
-
-        marker_cluster = MarkerCluster().add_to(m)
-
-        for _, row in pubs.iterrows():
-            st_folium.Marker([row["latitude"], row["longitude"]], popup=row["name"]).add_to(marker_cluster)
-
-        folium_static(m)
-
-
-# # Page 3 - Find the nearest Pub
-def find_nearest_pub():
+# Page Number 3 - Find the Nearest Pub
+def nearest_pub():
     st.image(nearest_img, caption=None, width=500, use_column_width=200, clamp=False, channels="RGB", output_format="auto")
-    st.title("Find the Nearest Pub")
-
-    # Get user's location
-    user_lat = st.text_input("Enter your Latitude")
-    user_lon = st.text_input("Enter your Longitude")
-
-    # Convert to float and filter by distance
-    if user_lat and user_lon:
-        user_location = [[float(user_lat), float(user_lon)]]
-        pubs = df[["latitude", "longitude"]].dropna()
-        ball_tree = BallTree(pubs, metric="haversine")
-        dist, ind = ball_tree.query(user_location, k=5)
-        nearest_pubs = df.iloc[ind[0]]
-
-        # Show pubs on a map
-        st.write("Map of nearest pubs:")
-        m = folium.Map(location=[user_lat, user_lon], zoom_start=15)
-        marker_cluster = MarkerCluster().add_to(m)
-        for _, row in nearest_pubs.iterrows():
-            popup_message = f"<b>{row['name']}</b><br>{row['address']}<br>"
-            folium.Marker([row["latitude"], row["longitude"]], popup=popup_message).add_to(marker_cluster)
-        folium_static(m)
-
-
-
-# Page 4 - Random Pub Selector
-def random_pub():
-    st.image(random_img, caption=None, width=400, use_column_width=100, clamp=False, channels="RGB", output_format="auto")
-    st.title("Random Pub Selector")
-
-    # Select a random pub from the dataset
-    random_row = df.sample(n=1)
-
-    # Show the pub on a map
-    st.write("Map of selected pub:")
-    m = folium.Map(location=[random_row["latitude"].iloc[0], random_row["longitude"].iloc[0]], zoom_start=13)
-    folium.Marker([random_row["latitude"].iloc[0], random_row["longitude"].iloc[0]], popup=random_row["name"].iloc[0]).add_to(m)
+    st.title('Find the Nearest Pub')
+    lat = st.number_input('Enter your Latitude:', value=51.5074)
+    lon = st.number_input('Enter your Longitude:', value=-0.1278)
+    n_pubs = st.slider('Number of nearest pubs to display:', 1, 10, 5)
+    pubs = df[['name', 'latitude', 'longitude']].dropna()
+    pubs['distance'] = np.sqrt((pubs['latitude'] - lat) ** 2 + (pubs['longitude'] - lon) ** 2)
+    pubs = pubs.sort_values('distance').head(n_pubs)
+    st.write(f'The {n_pubs} nearest pubs to your location:')
+    st.write(pubs[['name', 'distance']])
+    map_center = [lat, lon]
+    m = folium.Map(location=map_center, zoom_start=12)
+    for i, row in pubs.iterrows():
+        popup_text = f"{row['name']} ({row['distance']:.2f} km)"
+        folium.Marker([row['latitude'], row['longitude']], popup=popup_text).add_to(m)
+    folium.Marker(map_center, icon=folium.Icon(color='red')).add_to(m)
     folium_static(m)
 
+# App
+def app():
+    st.sidebar.title('Navigation')
+    pages = ['Home', 'Pub Locations', 'Find the Nearest Pub']
+    page = st.sidebar.selectbox('Select a page:', pages)
+    if page == 'Home':
+        home()
+    elif page == 'Pub Locations':
+        pub_locations()
+    elif page == 'Find the Nearest Pub':
+        nearest_pub()
 
-menu = ["Home", "Pub Locations", "Find the Nearest Pub", "Random Pub Selector"]
-choice = st.sidebar.selectbox("Select a page", menu)
-
-if choice == "Home":
-    home()
-elif choice == "Pub Locations":
-    pub_locations()
-elif choice == "Find the Nearest Pub":
-    find_nearest_pub()
-elif choice == "Random Pub Selector":
-    random_pub()
+if __name__ == '__main__':
+    from streamlit_folium import folium_static
+    app()
