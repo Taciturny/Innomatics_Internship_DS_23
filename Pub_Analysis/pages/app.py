@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-from matplotlib import image
 from PIL import Image, ImageEnhance
 import folium
 from folium.plugins import MarkerCluster
