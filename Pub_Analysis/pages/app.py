@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from PIL import Image, ImageEnhance
 import numpy as np
-import folium
 import os
 
 st.set_page_config(page_title="Pub Finder App",
@@ -55,14 +54,13 @@ def pub_locations():
     st.title('Pub Locations')
     location_type = st.radio('Search by:', ('Postal Code', 'Local Authority'))
     if location_type == 'Postal Code':
-        location = st.text_input('Enter Postal Code (e.g., SW1A 2AA):')
+        location = st.text_input('Enter Postal Code (e.g., LL13 7LU):')
         pubs = df[df['postcode'] == location]
     else:
         location = st.selectbox('Select Local Authority:', df['local_authority'].unique())
         pubs = df[df['local_authority'] == location]
     st.write(f'We found {len(pubs)} pubs in {location}.')
-    map_data = pubs[['latitude', 'longitude']].dropna()
-    st.map(map_data)
+    st.map(pubs[['latitude', 'longitude']])
 
 # Page Number 3 - Find the Nearest Pub
 def nearest_pub():
@@ -71,18 +69,11 @@ def nearest_pub():
     lat = st.number_input('Enter your Latitude:', value=51.5074)
     lon = st.number_input('Enter your Longitude:', value=-0.1278)
     n_pubs = st.slider('Number of nearest pubs to display:', 1, 10, 5)
-    pubs = df[['name', 'latitude', 'longitude']].dropna()
     pubs['distance'] = np.sqrt((pubs['latitude'] - lat) ** 2 + (pubs['longitude'] - lon) ** 2)
     pubs = pubs.sort_values('distance').head(n_pubs)
     st.write(f'The {n_pubs} nearest pubs to your location:')
-    st.write(pubs[['name', 'distance']])
-    map_center = [lat, lon]
-    m = folium.Map(location=map_center, zoom_start=12)
     for i, row in pubs.iterrows():
-        popup_text = f"{row['name']} ({row['distance']:.2f} km)"
-        folium.Marker([row['latitude'], row['longitude']], popup=popup_text).add_to(m)
-    folium.Marker(map_center, icon=folium.Icon(color='red')).add_to(m)
-    folium_static(m)
+        st.write(f"{row['name']} ({row['distance']:.2f} km)")
 
 # App
 def app():
@@ -97,5 +88,4 @@ def app():
         nearest_pub()
 
 if __name__ == '__main__':
-    from streamlit_folium import folium_static
     app()
