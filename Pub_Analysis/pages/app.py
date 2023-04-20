@@ -47,6 +47,8 @@ def home():
     st.image(home_img, caption=None, width=500, use_column_width=200, clamp=False, channels="RGB", output_format="auto")
     st.write("This app allows you to find pubs in the United Kingdom (UK) and discover their locations.")
     st.write(f'We have {len(df)} pub locations in our database.')
+    st.write("- Number of unique local authorities:", df["local_authority"].nunique())
+    st.write("- Number of unique postal codes:", df["postcode"].nunique())
     st.write('Use the navigation sidebar to explore the app.')
 
 # Page Number 2 - Pub Locations
