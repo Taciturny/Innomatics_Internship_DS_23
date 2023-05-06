@@ -4,6 +4,7 @@ import numpy as np
 from matplotlib import image
 import pickle
 import os
+from sklearn.naive_bayes import GaussianNB
 import pickle
 
 
