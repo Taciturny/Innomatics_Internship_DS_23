@@ -72,8 +72,3 @@ if thal == "Unknown":
 if st.button("Predict"):
     result = predict_disease(age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal)
     st.write(result)
-
-
-    
-
-
